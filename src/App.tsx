@@ -17,7 +17,7 @@ const birds = birdsData as Bird[];
 
 const SCORE_CUTOFF = 0.4;
 
-const normalize = (s: string) => s.replace(/['''\u2018\u2019]/g, "");
+const normalize = (s: string) => s.replace(/['''\u2018\u2019-]/g, "");
 
 const fuse = new Fuse(birds, {
   keys: [
