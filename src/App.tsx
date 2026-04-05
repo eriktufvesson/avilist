@@ -24,9 +24,14 @@ const fuse = new Fuse(birds, {
     { name: "swedish", weight: 0.4 },
     { name: "english", weight: 0.35 },
     { name: "scientific", weight: 0.25 },
+    { name: "epithet", weight: 0.2 },
   ],
   getFn: (bird, path) => {
     const key = Array.isArray(path) ? path[0] : path;
+    if (key === "epithet") {
+      const parts = bird.scientific.trim().split(/\s+/);
+      return parts.length >= 2 ? normalize(parts[parts.length - 1]) : "";
+    }
     const val = (bird as unknown as Record<string, unknown>)[key as string];
     return typeof val === "string" ? normalize(val) : String(val ?? "");
   },
